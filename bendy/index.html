@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Why?</title>
+
+    <style>
+        html, body {
+            margin: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            background: black;
+        }
+
+        #video {
+            width: 100vw;
+            height: 100vh;
+            object-fit: cover;
+        }
+
+        #overlay {
+            position: fixed;
+            inset: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: black;
+            color: white;
+            font-family: Arial, sans-serif;
+            font-size: 40px;
+            cursor: pointer;
+            user-select: none;
+        }
+    </style>
+</head>
+<body>
+
+<div id="overlay">Click anywhere to start</div>
+
+<video id="video" loop playsinline>
+    <source src="why cause we’re playing bendy - Billy (716p).mp4" type="video/mp4">
+    Your browser does not support HTML5 video.
+</video>
+
+<script>
+const overlay = document.getElementById("overlay");
+const video = document.getElementById("video");
+
+overlay.addEventListener("click", async () => {
+    overlay.style.display = "none";
+
+    // Request fullscreen
+    try {
+        if (document.documentElement.requestFullscreen) {
+            await document.documentElement.requestFullscreen();
+        } else if (document.documentElement.webkitRequestFullscreen) {
+            await document.documentElement.webkitRequestFullscreen();
+        }
+    } catch (e) {
+        // Ignore if fullscreen is denied
+    }
+
+    // Play video
+    try {
+        await video.play();
+    } catch (e) {
+        console.error(e);
+    }
+});
+</script>
+
+</body>
+</html>
